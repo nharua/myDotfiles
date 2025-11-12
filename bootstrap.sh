@@ -51,5 +51,10 @@ bash "$SCRIPTS_DIR/setup_git.sh" || true
 # ---------------------------------------------------------
 bash "$SCRIPTS_DIR/setup_fonts.sh" || true
 
+# ---------------------------------------------------------
+# Setup Tmux
+# ---------------------------------------------------------
+bash "$SCRIPTS_DIR/setup_tmux.sh" || true
+
 echo ">>> ✅ All done! 🎉"
 echo "You may now restart your terminal or run: source ~/.zshrc"
