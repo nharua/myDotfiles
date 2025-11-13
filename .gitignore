@@ -1,2 +1,19 @@
 # Python cache
 __pycache__/
+
+# temp files directories
+cache/
+log/
+*.swp
+.DS_Store
+
+# editor configs
+.vscode
+.idea
+
+# zcompile cached files
+*.zwc
+
+# nvim temp files
+lazy-lock.json
+.luarc.json
