@@ -61,6 +61,11 @@ mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat || true
 ln -sf /usr/bin/fdfind ~/.local/bin/fd || true
 
+# ---------------------------------------------------------
+# Add-on packages (forDEV)
+# ---------------------------------------------------------
+sudo apt install -y --no-install-recommends autoconf automake libtool
+
 # --- Clean up ---
 echo "Cleaning up..."
 sudo apt-get autoremove -y
