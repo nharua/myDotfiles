@@ -33,6 +33,15 @@ sudo apt update
 sudo apt install -y eza
 
 # ---------------------------------------------------------
+# nvim setup
+# ---------------------------------------------------------
+sudo apt install -y python3-neovim luarocks
+sudo luarocks install jsregexp
+sudo pip3 install pynvim --upgrade
+sudo curl -sL "https://deb.nodesource.com/setup_22.x" | sudo -E bash -
+sudo apt install -y nodejs
+
+# ---------------------------------------------------------
 # SSH server setup
 # ---------------------------------------------------------
 echo ">>> Installing and enabling SSH server..."
