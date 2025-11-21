@@ -7,6 +7,7 @@ return {
 				"html",
 				"lua_ls",
 				"pyright",
+				"clangd"
 			},
 		},
 		dependencies = {
