@@ -20,7 +20,7 @@ sudo apt install -y --no-install-recommends \
 	zsh tmux btop \
 	python3-pip python3-venv \
 	fzf bat exa zoxide meld git-delta gpg\
-	fonts-firacode
+	fonts-firacode xsel
 
 # ---------------------------------------------------------
 # eza setup
