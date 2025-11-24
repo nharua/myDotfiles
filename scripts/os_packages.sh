@@ -119,16 +119,10 @@ sudo systemctl start ssh
 sudo systemctl status ssh --no-pager || true
 
 # ---------------------------------------------------------
-# Convenience links (Ubuntu-specific renames)
+# Add-on packages (forDEV - VB Project)
 # ---------------------------------------------------------
-mkdir -p ~/.local/bin
-ln -sf /usr/bin/batcat ~/.local/bin/bat || true
-ln -sf /usr/bin/fdfind ~/.local/bin/fd || true
-
-# ---------------------------------------------------------
-# Add-on packages (forDEV)
-# ---------------------------------------------------------
-sudo apt install -y --no-install-recommends autoconf automake libtool
+sudo apt install -y --no-install-recommends python2
+sudo apt install -y --no-install-recommends gcc-multilib g++-multilib libc6-dev-i386
 
 # --- Clean up ---
 echo "Cleaning up..."
