@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DOTFILES_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 OH_MY_ZSH_DIR="$DOTFILES_DIR/oh-my-zsh"
 ZSH_TARGET="$HOME/.oh-my-zsh"
 ZSHRC_TARGET="$HOME/.zshrc"
