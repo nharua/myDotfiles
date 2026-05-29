@@ -58,6 +58,7 @@ function frg {
 }
 # system aliases
 alias -- bcat='bat --pager='\''less --RAW-CONTROL-CHARS --no-init'\'''
+alias -- cz='git cz'
 # -allias -- cd=z
 alias -- find=fd
 alias -- grep='grep --color=auto'

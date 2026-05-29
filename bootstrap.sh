@@ -47,6 +47,13 @@ fi
 bash "$SCRIPTS_DIR/setup_git.sh" || true
 
 # ---------------------------------------------------------
+# Setup Commitizen
+# ---------------------------------------------------------
+if [ -f "$SCRIPTS_DIR/setup_commitizen.sh" ]; then
+	bash "$SCRIPTS_DIR/setup_commitizen.sh" || true
+fi
+
+# ---------------------------------------------------------
 # Setup Nerd Fonts
 # ---------------------------------------------------------
 bash "$SCRIPTS_DIR/setup_fonts.sh" || true
