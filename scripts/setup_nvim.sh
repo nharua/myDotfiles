@@ -6,7 +6,7 @@
 
 set -e
 
-DOTFILES="$(cd "$(dirname "$0")" && pwd)"
+DOTFILES="$(cd "$(dirname "$0")/.." && pwd)"
 NVIM_CONFIG="$HOME/.config/nvim"
 DOTFILES_NVIM="$DOTFILES/nvim"
 
@@ -45,9 +45,9 @@ echo "✅ $nvim_version installed successfully!"
 
 
 if [ ! -d "$NVIM_CONFIG" ] && [ -d "$DOTFILES_NVIM" ]; then
-	  echo ">>> Linking Neovim config..."
-	    mkdir -p "$(dirname "$NVIM_CONFIG")"
-	      ln -sf "$DOTFILES_NVIM" "$NVIM_CONFIG"
+	echo ">>> Linking Neovim config..."
+	mkdir -p "$(dirname "$NVIM_CONFIG")"
+	ln -sf "$DOTFILES_NVIM" "$NVIM_CONFIG"
 fi
 
 echo ">>> Neovim setup complete! 🚀"

@@ -6,13 +6,19 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Theme
 #ZSH_THEME="amuse"
-ZSH_THEME="spaceship"
+#ZSH_THEME="spaceship"
+ZSH_THEME="agnosterzak"
 
 # Enable plugins (example)
 plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting)
 
 # Source Oh My Zsh
 source $ZSH/oh-my-zsh.sh
+
+# Display Pokemon-colorscripts
+# Project page: https://gitlab.com/phoneybadger/pokemon-colorscripts#on-other-distros-and-macos
+#pokemon-colorscripts --no-title -s -r #without fastfetch
+pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
 
 # history setup
 HISTFILE=$HOME/.zhistory
@@ -60,5 +66,23 @@ alias -- la='eza -a --group-directories-first'
 alias -- ll='eza -la --group-directories-first'
 alias -- ls='eza --group-directories-first'
 alias -- lt='eza --tree'
-alias upgrade='(date; echo "Starting full system upgrade...") | tee -a ~/upgrade.log && sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove -y && brew update && brew upgrade && brew cleanup && conda update -n base -c defaults conda -y && conda clean --all -y | tee -a ~/upgrade.log'
+alias -- tmux='TERM=xterm-256color tmux'
+# alias upgrade='(date; echo "Starting full system upgrade...") | tee -a ~/upgrade.log && sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove -y && brew update && brew upgrade && brew cleanup && conda update -n base -c defaults conda -y && conda clean --all -y | tee -a ~/upgrade.log'
+alias upgrade='
+(date; echo "Starting full system upgrade...") | tee -a ~/upgrade.log &&
+sudo apt update &&
+sudo apt upgrade -y &&
+sudo apt dist-upgrade -y &&
+sudo apt autoremove -y &&
+command -v brew >/dev/null && brew update && brew upgrade && brew cleanup
+'
+alias -- rdp2k_39='xfreerdp /v:192.168.1.39 /u:vber_vinhhuynhv +clipboard /size:2560x1400 /gfx /network:lan /sound:sys:alsa /cert:ignore /heartbeat /auto-reconnect /auto-reconnect-max-retries:10 -wallpaper -themes -menu-anims -window-drag -fonts -aero'
+alias -- rdp_39='xfreerdp /v:192.168.1.39 /u:vber_vinhhuynhv +clipboard /size:1920x1080 /gfx +gfx-progressive +async-input +async-update /bpp:16 /compression /network:lan /sound:sys:alsa /cert:ignore /heartbeat /auto-reconnect /auto-reconnect-max-retries:10 -wallpaper -themes -menu-anims -window-drag -fonts -aero'
+# alias -- rdp2k='xfreerdp /v:192.168.1.36 /u:vber_vinhhuynhv +clipboard /size:2560x1400 /gfx +gfx-progressive +async-input +async-update /bpp:16 /compression /network:lan /sound:sys:alsa /cert:ignore /heartbeat /auto-reconnect /auto-reconnect-max-retries:10 -wallpaper -themes -menu-anims -window-drag -fonts -aero'
+# alias -- rdp='xfreerdp /v:192.168.1.36 /u:vber_vinhhuynhv +clipboard /size:1920x1080 /gfx +gfx-progressive +async-input +async-update /bpp:16 /compression /network:lan /sound:sys:alsa /cert:ignore /reconnect-cookie /auto-reconnect /auto-reconnect-max-retries:10 -wallpaper -themes -menu-anims -window-drag -fonts -aero'
+alias -- rdp2k_36='xfreerdp /v:192.168.1.36 /u:vber_vinhhuynhv +clipboard /size:2560x1400 /gfx /network:lan /sound:sys:alsa /cert:ignore /heartbeat /auto-reconnect /auto-reconnect-max-retries:10 -wallpaper -themes -menu-anims -window-drag -fonts -aero'
+alias -- rdp_36='xfreerdp /v:192.168.1.36 /u:vber_vinhhuynhv +clipboard /size:1920x1080 /gfx +gfx-progressive +async-input +async-update /bpp:16 /compression /network:lan /sound:sys:alsa /cert:ignore /heartbeat /auto-reconnect /auto-reconnect-max-retries:10 -wallpaper -themes -menu-anims -window-drag -fonts -aero'
 
+
+# Added by Antigravity CLI installer
+export PATH="/home/rua/.local/bin:$PATH"

@@ -3,7 +3,7 @@ set -e
 
 echo ">>> Installing user fonts ..."
 
-dotfilesDir="$(cd "$(dirname "$0")" && pwd)"
+dotfilesDir="$(cd "$(dirname "$0")/.." && pwd)"
 fontSrc="${dotfilesDir}/fonts"
 fontDst="${HOME}/.local/share/fonts"
 
