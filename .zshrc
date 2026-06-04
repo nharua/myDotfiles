@@ -85,5 +85,20 @@ alias -- rdp2k_36='xfreerdp /v:192.168.1.36 /u:vber_vinhhuynhv +clipboard /size:
 alias -- rdp_36='xfreerdp /v:192.168.1.36 /u:vber_vinhhuynhv +clipboard /size:1920x1080 /gfx +gfx-progressive +async-input +async-update /bpp:16 /compression /network:lan /sound:sys:alsa /cert:ignore /heartbeat /auto-reconnect /auto-reconnect-max-retries:10 -wallpaper -themes -menu-anims -window-drag -fonts -aero'
 
 
+# ---- Custom DNS Switcher ----
+# Dynamically locate the dotfiles directory by resolving the sourced .zshrc path or ~/.zshrc symlink
+local _zshrc_path="${(%):-%x}"
+local _dotfiles_dir
+if [[ "$_zshrc_path" == *zshrc* ]]; then
+    _dotfiles_dir="${_zshrc_path:A:h}"
+else
+    local _zshrc_symlink="$HOME/.zshrc"
+    _dotfiles_dir="${_zshrc_symlink:A:h}"
+fi
+
+if [ -f "$_dotfiles_dir/scripts/setup_dns.sh" ]; then
+    source "$_dotfiles_dir/scripts/setup_dns.sh"
+fi
+
 # Added by Antigravity CLI installer
 export PATH="/home/rua/.local/bin:$PATH"
