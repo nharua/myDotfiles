@@ -5,7 +5,7 @@
 # =========================================================
 
 set -e  # stop on error
-DOTFILES_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 SCRIPTS_DIR="$DOTFILES_DIR/scripts"
 
 echo ">>> Starting dotfiles setup..."
@@ -14,14 +14,19 @@ echo ">>> Starting dotfiles setup..."
 # System-level preconfiguration
 # ---------------------------------------------------------
 echo "🔧 [0/8] Setting up system configurations..."
-echo ">>> Configuring APT to skip recommended packages by default..."
 
-APT_CONF="/etc/apt/apt.conf.d/99no-recommends"
-if ! grep -q 'APT::Install-Recommends' "$APT_CONF" 2>/dev/null; then
-	  echo 'APT::Install-Recommends "false";' | sudo tee "$APT_CONF" > /dev/null
-	    echo ">>> APT configuration added: Install-Recommends=false"
+OS_TYPE="$(uname -s)"
+if [ "$OS_TYPE" = "Linux" ]; then
+    echo ">>> Configuring APT to skip recommended packages by default..."
+    APT_CONF="/etc/apt/apt.conf.d/99no-recommends"
+    if ! grep -q 'APT::Install-Recommends' "$APT_CONF" 2>/dev/null; then
+        echo 'APT::Install-Recommends "false";' | sudo tee "$APT_CONF" > /dev/null
+        echo ">>> APT configuration added: Install-Recommends=false"
     else
-	      echo ">>> APT configuration already set, skipping."
+        echo ">>> APT configuration already set, skipping."
+    fi
+else
+    echo ">>> macOS detected: skipping Linux APT recommendations configuration."
 fi
 
 # ---------------------------------------------------------

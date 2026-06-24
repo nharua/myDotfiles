@@ -1,6 +1,27 @@
 #!/usr/bin/env bash
 set -e
 
+OS_TYPE="$(uname -s)"
+
+if [ "$OS_TYPE" = "Darwin" ]; then
+    echo ">>> macOS detected: setting up packages using Homebrew..."
+    if ! command -v brew &>/dev/null; then
+        echo ">>> Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    # Initialize Homebrew environment
+    eval "$(/opt/homebrew/bin/brew shellenv)" || eval "$(/usr/local/bin/brew shellenv)" || true
+    
+    echo ">>> Installing packages via Homebrew..."
+    brew install git curl wget unzip zip btop ripgrep bat fd fzf tmux zoxide git-delta eza neovim nodejs
+    echo ">>> Package installation completed on macOS!"
+    exit 0
+fi
+
+# ---------------------------------------------------------
+# Linux/Ubuntu Packages Setup
+# ---------------------------------------------------------
+
 # --- Enable universe repository (needed for fzf, etc.) ---
 echo "Enabling universe repository..."
 sudo add-apt-repository -y universe
@@ -45,7 +66,7 @@ cd -
 echo ">>> Installing fd-find ..."
 cd /tmp
 wget -q --inet4-only https://github.com/sharkdp/fd/releases/download/v10.3.0/fd_10.3.0_amd64.deb
-sudo dpkg -i ripgrep_15.1.0-1_amd64.deb
+sudo dpkg -i fd_10.3.0_amd64.deb
 cd -
 
 # ---------------------------------------------------------

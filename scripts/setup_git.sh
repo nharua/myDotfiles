@@ -2,9 +2,16 @@
 set -e
 
 echo ">>> Configuring Git..."
-read -p "Enter your name: " name
-read -p "Enter your email: " email
-read -p "Enter your company: " company
+if [ -t 0 ]; then
+    read -p "Enter your name: " name
+    read -p "Enter your email: " email
+    read -p "Enter your company: " company
+else
+    echo ">>> Non-interactive terminal detected. Skipping prompts and using default test values."
+    name="CI Tester"
+    email="ci@test.com"
+    company="CI Corp"
+fi
 git config --global user.name "$name"
 git config --global user.email "$email"
 git config --global user.company "$company"

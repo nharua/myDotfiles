@@ -1,0 +1,23 @@
+name: Verify Dotfiles Installation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ubuntu-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Run Bootstrap Script
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        chmod +x bootstrap.sh
+        # Run bootstrap.sh in non-interactive mode
+        ./bootstrap.sh

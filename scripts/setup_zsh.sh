@@ -73,7 +73,7 @@ else
 fi
 
 # --- Change default shell if needed ---
-if [ "$SHELL" != "$(which zsh)" ]; then
+if [ "$SHELL" != "$(which zsh)" ] && [ "$(uname -s)" != "Darwin" ]; then
     echo ">>> Changing default shell to Zsh..."
     chsh -s "$(which zsh)"
 fi

@@ -5,6 +5,55 @@
 # =========================================================
 
 dns() {
+    # Detect OS
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS specific DNS switching
+        local active_service
+        active_service=$(networksetup -listnetworkserviceorder | grep -B 1 $(route -n get default 2>/dev/null | grep interface | awk '{print $2}') | head -n 1 | cut -d' ' -f2-)
+        if [[ -z "$active_service" ]]; then
+            active_service="Wi-Fi"
+        fi
+        
+        echo "🔌 Active Connection: $active_service"
+        local current_dns
+        current_dns=$(networksetup -getdnsservers "$active_service" 2>/dev/null)
+        echo "🔍 Current Profile DNS: ${current_dns:-[Auto/DHCP]}"
+        echo "=========================================="
+        echo "What DNS server do you want to use?"
+        echo "  a     -> Auto DNS based on DHCP config"
+        echo "  myIP  -> Setup specific DNS server(s)"
+        echo "=========================================="
+        
+        local choice
+        read "choice?DNS selection [a/myIP]: "
+        
+        if [[ "$choice" == "a" ]]; then
+            echo "⚙️ Switching to Auto DNS (DHCP) for '$active_service'..."
+            sudo networksetup -setdnsservers "$active_service" Empty
+            echo "✅ DNS successfully configured to Auto (DHCP)!"
+        elif [[ "$choice" == "myIP" || -z "$choice" ]]; then
+            local default_dns="1.1.1.1 8.8.8.8"
+            local dns_ip
+            read "dns_ip?Enter DNS IP(s) [default: $default_dns]: "
+            if [[ -z "$dns_ip" ]]; then
+                dns_ip="$default_dns"
+            fi
+            echo "⚙️ Setting DNS to '$dns_ip'..."
+            sudo networksetup -setdnsservers "$active_service" ${=dns_ip}
+            echo "✅ DNS successfully set to: $dns_ip"
+        else
+            if [[ "$choice" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+                echo "⚙️ Setting DNS to '$choice'..."
+                sudo networksetup -setdnsservers "$active_service" "$choice"
+                echo "✅ DNS successfully set to: $choice"
+            else
+                echo "❌ Invalid option: '$choice'"
+                return 1
+            fi
+        fi
+        return 0
+    fi
+
     # Check if nmcli is available
     if ! command -v nmcli >/dev/null 2>&1; then
         echo "❌ nmcli command not found. This script requires NetworkManager."
