@@ -25,22 +25,28 @@ else
     sudo apt autoremove -y
 
     # Optional cleanup
-    sudo rm -f /usr/bin/nvim 2>/dev/null || true
+    sudo rm -f /usr/bin/nvim /usr/local/bin/nvim 2>/dev/null || true
 
     # ---------------------------------------------------------
     # Install latest Neovim AppImage
     # ---------------------------------------------------------
     echo ">>> Installing latest Neovim AppImage..."
-    cd /usr/local/bin
+    cd /tmp
 
     # Download the latest stable AppImage
-    sudo curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
 
     # Make it executable
-    sudo chmod u+x nvim-linux-x86_64.appimage
+    chmod u+x nvim-linux-x86_64.appimage
+
+    # Extract AppImage to avoid FUSE dependency
+    ./nvim-linux-x86_64.appimage --appimage-extract
+    sudo rm -rf /opt/nvim
+    sudo mv squashfs-root /opt/nvim
 
     # Create shortcut "nvim"
-    sudo ln -sf /usr/local/bin/nvim-linux-x86_64.appimage /usr/local/bin/nvim
+    sudo ln -sf /opt/nvim/AppRun /usr/local/bin/nvim
+    rm -f nvim-linux-x86_64.appimage
 fi
 
 # ---------------------------------------------------------

@@ -23,6 +23,11 @@ fi
 # ---------------------------------------------------------
 
 # --- Enable universe repository (needed for fzf, etc.) ---
+if ! command -v add-apt-repository &>/dev/null; then
+    echo ">>> add-apt-repository not found. Installing software-properties-common..."
+    sudo apt update -y
+    sudo apt install -y --no-install-recommends software-properties-common
+fi
 echo "Enabling universe repository..."
 sudo add-apt-repository -y universe
 sudo apt update -y
@@ -35,12 +40,23 @@ sudo apt update && sudo apt upgrade -y
 # ---------------------------------------------------------
 echo ">>> Installing base packages..."
 sudo apt install -y --no-install-recommends \
-	git curl wget build-essential neofetch\
+	git curl wget build-essential fastfetch\
 	unzip zip \
 	zsh btop \
 	python3-pip python3-venv \
 	meld gpg\
 	fonts-firacode xsel
+
+# ---------------------------------------------------------
+# Node.js Setup (NodeSource Nsolid 24.x)
+# ---------------------------------------------------------
+echo ">>> Installing Node.js 24.x (Nsolid) via NodeSource..."
+if ! command -v node &>/dev/null; then
+    curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+    sudo apt-get install -y nsolid
+else
+    echo ">>> Node.js/Nsolid is already installed."
+fi
 
 # ---------------------------------------------------------
 # ripgrep setup
@@ -120,11 +136,9 @@ cd -
 # ---------------------------------------------------------
 # nvim setup
 # ---------------------------------------------------------
-sudo apt install -y python3-neovim luarocks
+sudo apt install -y python3-pynvim luarocks
 sudo luarocks install jsregexp
-sudo pip3 install pynvim --upgrade
-sudo curl -sL "https://deb.nodesource.com/setup_22.x" | sudo -E bash -
-sudo apt install -y nodejs
+sudo pip3 install pynvim --upgrade --break-system-packages || true
 
 # ---------------------------------------------------------
 # SSH server setup

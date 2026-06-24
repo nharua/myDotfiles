@@ -40,8 +40,14 @@ fi
 # --- Clone or update Oh My Zsh in dotfiles ---
 if [ "$ONLINE" = true ]; then
     echo ">>> Internet available: cloning/updating Oh My Zsh..."
-    if [ -d "$OH_MY_ZSH_DIR/.git" ]; then
-        git -C "$OH_MY_ZSH_DIR" pull --rebase
+    if [ -d "$OH_MY_ZSH_DIR" ]; then
+        if [ -d "$OH_MY_ZSH_DIR/.git" ]; then
+            git -C "$OH_MY_ZSH_DIR" pull --rebase
+        else
+            echo ">>> Oh My Zsh directory exists but is not a Git repo. Re-creating..."
+            rm -rf "$OH_MY_ZSH_DIR"
+            git clone https://github.com/ohmyzsh/ohmyzsh.git "$OH_MY_ZSH_DIR"
+        fi
     else
         git clone https://github.com/ohmyzsh/ohmyzsh.git "$OH_MY_ZSH_DIR"
     fi

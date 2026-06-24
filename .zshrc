@@ -4,7 +4,7 @@
 # =========================================================
 
 # --- Paths & Env ---
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Dynamically locate the dotfiles directory
 local _zshrc_path="${(%):-%x}"
@@ -78,5 +78,9 @@ fi
 # Welcome Banner (Pokemon-colorscripts + fastfetch)
 # =========================================================
 if [[ -o interactive ]]; then
-    pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
+    if command -v pokemon-colorscripts &>/dev/null && command -v fastfetch &>/dev/null && [[ -f "$HOME/.config/fastfetch/config-pokemon.jsonc" ]]; then
+        pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
+    elif command -v fastfetch &>/dev/null; then
+        fastfetch
+    fi
 fi
