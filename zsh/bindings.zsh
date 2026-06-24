@@ -30,4 +30,10 @@ zvm_after_init() {
   # Up/Down -> history search by substring (^[[A/^[[B are up/down arrow escape codes)
   bindkey '^[[A' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
+
+  # Explicitly bind fzf widgets for insert (viins) and command (vicmd) modes
+  bindkey -M viins '^R' fzf-history-widget
+  bindkey -M vicmd '^R' fzf-history-widget
+  bindkey -M viins '^T' fzf-file-widget
+  bindkey -M vicmd '^T' fzf-file-widget
 }
