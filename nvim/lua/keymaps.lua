@@ -153,6 +153,10 @@ wk.add({
 		group = "  TODO",
 	},
 	{
+		"<leader>m",
+		group = "🧜 Mermaid",
+	},
+	{
 		"<leader>w",
 		group = "Workspace Management",
 	}, -- group
