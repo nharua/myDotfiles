@@ -19,6 +19,18 @@ else
     ONLINE=false
 fi
 
+# --- Install Starship if not present ---
+if ! command -v starship &>/dev/null; then
+    echo ">>> Starship not found. Installing Starship..."
+    if [ "$ONLINE" = true ]; then
+        curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir "$HOME/.local/bin" -y
+    else
+        echo "⚠️ Warning: Offline mode, cannot download/install Starship automatically."
+    fi
+else
+    echo ">>> Starship is already installed."
+fi
+
 # --- Backup existing ~/.oh-my-zsh if exists ---
 if [ -d "$ZSH_TARGET" ] || [ -L "$ZSH_TARGET" ]; then
     echo ">>> Backing up existing ~/.oh-my-zsh to $BACKUP_DIR"
