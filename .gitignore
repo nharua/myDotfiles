@@ -18,8 +18,4 @@ log/
 lazy-lock.json
 .luarc.json
 
-# oh-my-zsh temp
-oh-my-zsh/.devcontainer/
-oh-my-zsh/.github/
-oh-my-zsh/.gitignore
-oh-my-zsh/cache/
+
