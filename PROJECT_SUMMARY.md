@@ -45,3 +45,33 @@ Modularize the Zsh configuration, integrate the Starship prompt, resolve FZF sea
 ### Notes
 - Local verification using `test_ubuntu_install.sh` successfully passed.
 - SSH Port forwarding (port `8888`) must be set up to enable Markdown/Mermaid previews on remote workspaces.
+
+---
+
+## Session 2 - 2026-06-29
+
+### Task
+Fix Neovim FUSE and Python provider issues in Docker/minimal environments, support NodeSource (Nsolid) 24.x installation for Commitizen, and purge the unused Oh My Zsh dependency to keep the dotfiles repository completely lightweight and framework-free.
+
+### What was done
+- **FUSE-less Neovim Setup**: Refactored the Linux Neovim installer (`scripts/setup_nvim.sh`) to extract the AppImage (`--appimage-extract`) into `/opt/nvim`, bypassing the lack of FUSE inside Docker containers and minimal environments.
+- **NodeSource Nsolid 24.x**: Switched the Node.js setup in `scripts/os_packages.sh` to configure the NodeSource 24.x repository and install `nsolid` for explicit Node.js and NPM version control, resolving global Commitizen installation warnings.
+- **Python 3 Provider Fix**: Installed `python3-pynvim` via APT and added `--break-system-packages` with a fallback to `pip3 install pynvim` to prevent PEP 668 blockages in Ubuntu 24.04/26.04.
+- **Removed Oh My Zsh**: Purged the unused `oh-my-zsh` submodule/nested repository and all associated cloning, updating, and symlinking logic from `scripts/setup_zsh.sh` and `.gitignore`, transitioning fully to our lightweight, framework-free Zsh plugin loader.
+- **Docker Verification**: Verified the entire bootstrap installation process end-to-end inside a clean Ubuntu Docker container, ensuring a 100% clean exit code (0) and error-free shell startup.
+
+### Files modified
+- `scripts/os_packages.sh` - Added NodeSource Nsolid 24.x setup, replaced deprecated `neofetch` with `fastfetch`, updated python3 provider package to `python3-pynvim`, and removed duplicate Node.js installation blocks.
+- `scripts/setup_nvim.sh` - Refactored Linux AppImage extraction to run without FUSE dependencies.
+- `scripts/setup_zsh.sh` - Removed all Oh My Zsh cloning, updating, and symlinking code.
+- `.zshrc` - Added `/usr/local/bin` and `/usr/local/sbin` to the PATH, and added safety checks and fallbacks to the Welcome Banner.
+- `.gitignore` - Cleaned up unused Oh My Zsh ignore rules.
+
+### TODO / Next Steps
+- [ ] Verify the bootstrap script on a physical macOS device.
+- [ ] Add more platform-specific aliases or utilities if needed.
+- [ ] Customize Starship prompt style or Fastfetch welcome message.
+
+### Notes
+- Local verification using `test_ubuntu_install.sh` successfully passed.
+- Removing Oh My Zsh from Git tracking required a git push to purge the tracked files from the remote repository.
