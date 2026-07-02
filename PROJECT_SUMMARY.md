@@ -75,3 +75,26 @@ Fix Neovim FUSE and Python provider issues in Docker/minimal environments, suppo
 ### Notes
 - Local verification using `test_ubuntu_install.sh` successfully passed.
 - Removing Oh My Zsh from Git tracking required a git push to purge the tracked files from the remote repository.
+
+---
+
+## Session 3 - 2026-07-02
+
+### Task
+Fix Python virtual environment (venv) display in Starship prompt when sourced.
+
+### What was done
+- Added the `$python` module to the Starship prompt layout `format` string.
+- Configured the `[python]` module in Starship with a yellow color scheme and standard Python symbol ` ` to match existing language settings.
+- Verified Starship configuration and prompt rendering under different virtualenv activation states.
+
+### Files modified
+- `zsh/starship.toml` - Added `$python` module to format string and defined `[python]` configuration layout.
+
+### TODO / Next Steps
+- [ ] Verify the bootstrap script on a physical macOS device.
+- [ ] Add more platform-specific aliases or utilities if needed.
+- [ ] Customize Starship prompt style or Fastfetch welcome message further if needed.
+
+### Notes
+- Sourcing `.venv` correctly activates and exports the `VIRTUAL_ENV` variable. The `VIRTUAL_ENV_DISABLE_PROMPT=1` flag in `zsh/prompt.zsh` ensures Starship is responsible for rendering the virtualenv name without interference.
